@@ -1,13 +1,9 @@
 import java.util.*;
 public class teht1 {
+    static Scanner scanner = new Scanner(System.in);
 
-    /* Tehtävänanto:
-    a) Määritä olio-ohjelmoinnilla kylttityypit niin, että merkkijonosta m
-    voidaan suoraviivaisesti rakentaa mikä tahansa em. kolmesta kylttityypistä.
-    Kylttien parametreja ei tarvitse pystyä muuttamaan kuten viime kerralla,
-    mutta huomioi suunnittelussa, että tätä voidaan haluta myöhemmin.
 
-    b) Kyltit tulee voida tallentaa taulukkoon ja taulukossa olevat kyltit pitää
+    /* b) Kyltit tulee voida tallentaa taulukkoon ja taulukossa olevat kyltit pitää
     voida tulostaa peräjälkeen tietämättä etukäteen kunkin kyltin tarkkaa
     tyyppiä ja piirtotapaa. Toteuta esimerkkimetodi luoKyltit, joka luo yhden
     kutakin kylttityyppiä, lisää nämä kolme kylttiä taulukkoon ja palauttaa ko. taulukon.
@@ -22,15 +18,16 @@ public class teht1 {
     //* Tämän viikon lisäykset kylttitehtävään:
 
     //* Yksinkertaistettu kyltti:
-
-    void tulosta2(final String t) {
-        System.out.println("--{ " + t + " }--");
+    public static void yksinkertainenKyltti(final String teksti){
+            System.out.println("--{ " + teksti + " }--");
+    }
+    //* Peruskyltti:
+    public static void peruskyltti(final String teksti) {
+        Kyltti kylttiperus = new Kyltti(40, 5, "" , "*");
+        kylttiperus.asetaTeksti(teksti);
+        tulosta(kylttiperus);
     }
 
-    //* peruskyltti, joka on muuten samanlainen kuin viime kerran kustomoitava
-    // kolmen parametrin (leveys, korkeus ja täyte) määrittämä kyltti, mutta
-    // parametreille on vakioitu kiinteät arvot:
-    // leveys = 40, korkeus = 5 ja täyte = Asteriski.
 
 
 
@@ -40,42 +37,42 @@ public class teht1 {
         //* viimeviikon kylttitehtävä:
 
         public static void main(String[] args) {
+            System.out.println("Luodaan kyltti");
+            kysykyltti();
 
-            Kyltti kyltti1 = new Kyltti(0, 0, "", "");
-            Kyltti kyltti2 = new Kyltti(0, 0, "", "");
-            Kyltti kyltti3 = new Kyltti(0, 0, "", "");
-            luokyltti(kyltti1);
-            tulosta(kyltti1);
-            kylttimuutos(kyltti1);
+            //*Kyltti kyltti2 = new Kyltti(0, 0, "", "");
+            //*Kyltti kyltti3 = new Kyltti(0, 0, "", "");
 
-            System.out.println("Haluatko luoda toisen kyltin? (vastaa 'kyllä' tai 'ei')");
-            Scanner scanner = new Scanner(System.in);
+            //*kylttimuutos(kyltti1);
+
+            System.out.println("Haluatko luoda toisen kyltin? (vastaa 'kyllä' tai 'ei')");;
             String vastaus1 = scanner.nextLine();
             if (vastaus1.equals("ei")) {
-                System.out.println("Tämä oli kylttisi:");
-                tulosta(kyltti1);
+                //*System.out.println("Tämä oli kylttisi:");
+                //*tulosta(kyltti1);
                 System.exit(0);
             } else {
-                luokyltti(kyltti2);
-                tulosta(kyltti2);
-                kylttimuutos(kyltti2);
+                kysykyltti();
+                /*luokyltti(kyltti2);
+                tulosta(kyltti2);*/
+                //*kylttimuutos(kyltti2);
             }
 
             System.out.println("Haluatko luoda kolmannen kyltin? (vastaa 'kyllä' tai 'ei')");
-            Scanner scanneri = new Scanner(System.in);
-            String vastaus2 = scanneri.nextLine();
+            String vastaus2 = scanner.nextLine();
             if (vastaus2.equals("ei")) {
-                System.out.println("Kylttisi olivat nämä:");
+                /*System.out.println("Kylttisi olivat nämä:");
                 tulosta(kyltti1);
-                tulosta(kyltti2);
+                tulosta(kyltti2);*/
                 System.exit(0);
             } else {
-                luokyltti(kyltti3);
-                tulosta(kyltti3);
-                kylttimuutos(kyltti3);
+                kysykyltti();
+                /*luokyltti(kyltti3);
+                tulosta(kyltti3);*/
+                //*kylttimuutos(kyltti3);
             }
 
-            System.out.println("Haluatko vielä muokata jotain kylttiä? Kirjoita kyltin numero (1,2,3) tai 'ei'");
+           /*System.out.println("Haluatko vielä muokata jotain kylttiä? Kirjoita kyltin numero (1,2,3) tai 'ei'");
             tulosta(kyltti1);
             System.out.println();
             tulosta(kyltti2);
@@ -124,33 +121,54 @@ public class teht1 {
                     tulosta(kyltti3);
                     System.exit(0);
 
-            }
+            }*/
 
         }
 
+    public static void kysykyltti() {
+        System.out.println("Minkä tekstin haluat kylttiin?");
+        String kylttiteksti = scanner.nextLine();
+        System.out.println("Minkälaisen kyltin haluat luoda? (perus, yksinkertainen, kustomoitava)");
+        String tyyppi = scanner.nextLine();
+        tyyppi.toLowerCase();
+        if (tyyppi.equals("perus")) {
+            peruskyltti(kylttiteksti);
+        } else if (tyyppi.equals("yksinkertainen")) {
+            yksinkertainenKyltti(kylttiteksti);
+        } else if (tyyppi.equals("kustomoitava")) {
+            Kyltti kyltti1 = new Kyltti(0, 0, kylttiteksti, "");
+            luokyltti(kyltti1);
+            tulosta(kyltti1);
+        } else {
+            System.out.println("Anna oikea kylttityyppi.");
+            kysykyltti();
+        }
+    }
+
         public static Kyltti luokyltti(Kyltti kyltti) {
-            Scanner scanner = new Scanner(System.in);
 
             System.out.println("Anna leveys välillä 8-40");
             int leveys = scanner.nextInt();
             System.out.println("Anna korkeus välillä 3-6");
             int korkeus = scanner.nextInt();
-            System.out.println("Anna kyltin teksti");
+            //*System.out.println("Anna kyltin teksti");
             scanner.nextLine();
-            String teksti = scanner.nextLine();
+            //*String teksti = scanner.nextLine();
             System.out.println("Valitse täyte (*, # tai -)");
             String täyte = scanner.nextLine();
 
             kyltti.asetaTäyte(täyte);
             kyltti.asetaKorkeus(korkeus);
             kyltti.asetaLeveys(leveys);
-            kyltti.asetaTeksti(teksti);
+            //*kyltti.asetaTeksti(teksti);
 
             return kyltti;
         }
 
 
-        public static void kylttimuutos(Kyltti kyltti) {
+
+
+        /*public static void kylttimuutos(Kyltti kyltti) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Haluatko muuttaa täytettä? Kirjoita *, # , - , tai 'ei' jos haluat lopettaa.");
 
@@ -191,7 +209,7 @@ public class teht1 {
                 kyltti.asetaTäyte(uusiuusitäyte);
                 tulosta(kyltti);
             }
-        }
+        }*/
 
         public static void tulosta(Kyltti kyltti) {
             final int k2 = (kyltti.annaKorkeus() - 1) / 2;
