@@ -1,6 +1,9 @@
+import java.lang.reflect.Array;
 import java.util.*;
 public class teht1 {
     static Scanner scanner = new Scanner(System.in);
+    static ArrayList<String> kyltit = new ArrayList<String>();
+    static Kyltti esimerkki = new Kyltti(30, 5, "Esimerkki", "#");
 
 
     /* b) Kyltit tulee voida tallentaa taulukkoon ja taulukossa olevat kyltit pitää
@@ -20,108 +23,43 @@ public class teht1 {
     //* Yksinkertaistettu kyltti:
     public static void yksinkertainenKyltti(final String teksti){
             System.out.println("--{ " + teksti + " }--");
+
     }
     //* Peruskyltti:
     public static void peruskyltti(final String teksti) {
         Kyltti kylttiperus = new Kyltti(40, 5, "" , "*");
         kylttiperus.asetaTeksti(teksti);
         tulosta(kylttiperus);
+
     }
 
-
-
-
-
-
-
-        //* viimeviikon kylttitehtävä:
 
         public static void main(String[] args) {
             System.out.println("Luodaan kyltti");
             kysykyltti();
 
-            //*Kyltti kyltti2 = new Kyltti(0, 0, "", "");
-            //*Kyltti kyltti3 = new Kyltti(0, 0, "", "");
-
-            //*kylttimuutos(kyltti1);
-
             System.out.println("Haluatko luoda toisen kyltin? (vastaa 'kyllä' tai 'ei')");;
             String vastaus1 = scanner.nextLine();
             if (vastaus1.equals("ei")) {
-                //*System.out.println("Tämä oli kylttisi:");
-                //*tulosta(kyltti1);
                 System.exit(0);
             } else {
                 kysykyltti();
-                /*luokyltti(kyltti2);
-                tulosta(kyltti2);*/
-                //*kylttimuutos(kyltti2);
             }
 
             System.out.println("Haluatko luoda kolmannen kyltin? (vastaa 'kyllä' tai 'ei')");
             String vastaus2 = scanner.nextLine();
             if (vastaus2.equals("ei")) {
-                /*System.out.println("Kylttisi olivat nämä:");
-                tulosta(kyltti1);
-                tulosta(kyltti2);*/
                 System.exit(0);
             } else {
                 kysykyltti();
-                /*luokyltti(kyltti3);
-                tulosta(kyltti3);*/
-                //*kylttimuutos(kyltti3);
             }
 
-           /*System.out.println("Haluatko vielä muokata jotain kylttiä? Kirjoita kyltin numero (1,2,3) tai 'ei'");
-            tulosta(kyltti1);
-            System.out.println();
-            tulosta(kyltti2);
-            System.out.println();
-            tulosta(kyltti3);
-            Scanner skanner = new Scanner(System.in);
-            String vastaus3 = skanner.nextLine();
-
-            switch (vastaus3) {
-                case "1":
-                    kylttimuutos(kyltti1);
-                    System.out.println("Kylttisi olivat:");
-                    tulosta(kyltti1);
-                    System.out.println();
-                    tulosta(kyltti2);
-                    System.out.println();
-                    tulosta(kyltti3);
-                    System.exit(0);
-
-                case "2":
-                    kylttimuutos(kyltti2);
-                    System.out.println("Kylttisi olivat:");
-                    tulosta(kyltti1);
-                    System.out.println();
-                    tulosta(kyltti2);
-                    System.out.println();
-                    tulosta(kyltti3);
-                    System.exit(0);
-
-                case "3":
-                    kylttimuutos(kyltti3);
-                    System.out.println("Kylttisi olivat:");
-                    tulosta(kyltti1);
-                    System.out.println();
-                    tulosta(kyltti2);
-                    System.out.println();
-                    tulosta(kyltti3);
-                    System.exit(0);
-
-                default:
-                    System.out.println("Kylttisi olivat:");
-                    tulosta(kyltti1);
-                    System.out.println();
-                    tulosta(kyltti2);
-                    System.out.println();
-                    tulosta(kyltti3);
-                    System.exit(0);
-
-            }*/
+            System.out.println("Luodaan esimerkkikyltit");
+            luoKyltit();
+            System.out.println("Kyltit tallennettiin taulukkoon.");
+            System.out.println("Haetaan kyltit taulukosta.");
+            System.out.println("Esimerkkikyltit olivat:");
+            tulostaKyltit();
 
         }
 
@@ -151,65 +89,134 @@ public class teht1 {
             int leveys = scanner.nextInt();
             System.out.println("Anna korkeus välillä 3-6");
             int korkeus = scanner.nextInt();
-            //*System.out.println("Anna kyltin teksti");
             scanner.nextLine();
-            //*String teksti = scanner.nextLine();
             System.out.println("Valitse täyte (*, # tai -)");
             String täyte = scanner.nextLine();
 
             kyltti.asetaTäyte(täyte);
             kyltti.asetaKorkeus(korkeus);
             kyltti.asetaLeveys(leveys);
-            //*kyltti.asetaTeksti(teksti);
+
 
             return kyltti;
         }
 
+        //esimerkki metodit
+        public static ArrayList<String> luoKyltit(){
 
+        yksinkertainenKyltti("Esimerkki");
+        asetaTaulukkoon(yksinkertaisetarvot("Esimerkki"));
+        peruskyltti("Esimerkki");
+        Kyltti perusesimerkkikyltti = new Kyltti(40,5,"Esimerkki","*");
+        asetaTaulukkoon(arvot(perusesimerkkikyltti));
+        asetaTaulukkoon(arvot(esimerkki));
+        tulosta(esimerkki);
+        return kyltit;
+        }
 
+        public  static void tulostaKyltit(){
+            kylttiTulostus();
+        }
 
-        /*public static void kylttimuutos(Kyltti kyltti) {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Haluatko muuttaa täytettä? Kirjoita *, # , - , tai 'ei' jos haluat lopettaa.");
+        public static String[] pilko1(ArrayList<String> kyltit){
+        String kylt1 = kyltit.get(0);
+        String[] k1 = kylt1.split(" ");
+        return k1;
 
-            String uusitäyte = scanner.nextLine();
-            if (uusitäyte.equals("ei")) {
-                System.exit(0);
-            } else {
-                kyltti.asetaTäyte(uusitäyte);
-                tulosta(kyltti);
-            }
+        }
 
-            System.out.println("Haluatko muuttaa leveyttä? Kirjoita uusi leveys välillä 8-40, tai '0' jos haluat lopettaa");
+    public static String[] pilko2(ArrayList<String> kyltit){
+        String kylt2 = kyltit.get(1);
+        String[] k2 = kylt2.split(" ");
+        return k2;
 
-            int uusileveys = scanner.nextInt();
-            if (uusileveys == 0) {
-                System.exit(0);
-            } else {
-                kyltti.asetaLeveys(uusileveys);
-                tulosta(kyltti);
-            }
+    }
 
-            System.out.println("Haluatko muuttaa korkeutta? Kirjoita uusi korkeus välillä 3-6, tai '0' jos haluat lopettaa");
+    public static String[] pilko3(ArrayList<String> kyltit) {
+        String kylt3 = kyltit.get(2);
+        String[] k3 = kylt3.split(" ");
+        return k3;
 
-            int uusikorkeus = scanner.nextInt();
-            if (uusikorkeus == 0) {
-                System.exit(0);
-            } else {
-                kyltti.asetaKorkeus(uusikorkeus);
-                tulosta(kyltti);
-            }
+    }
 
-            System.out.println("Haluatko muuttaa vielä kerran täytettä? Kirjoita uusi täyte (*, # tai -) tai 'ei' jos lopetat");
-            scanner.nextLine();
-            String uusiuusitäyte = scanner.nextLine();
-            if (uusiuusitäyte.equals("ei")) {
-                System.exit(0);
-            } else {
-                kyltti.asetaTäyte(uusiuusitäyte);
-                tulosta(kyltti);
-            }
-        }*/
+    public static void kylttiTulostus(){
+        String [] kk1 = pilko1(kyltit);
+        String [] kk2 = pilko2(kyltit);
+        String [] kk3 = pilko3(kyltit);
+        Kyltti esimerkki1 = new Kyltti(0, 0, "", "");
+        Kyltti esimerkki2 = new Kyltti(0, 0, "", "");
+
+        if(((String) Array.get(kk1, 0)).equals("0")){
+            String tekst = (String)Array.get(kk1, 2);
+            System.out.println("--{ " + tekst + " }--");
+            int välileveys = Integer.parseInt((String)Array.get(kk2, 0));
+            esimerkki1.asetaLeveys(välileveys);
+            int välikorkeus = Integer.parseInt((String)Array.get(kk2, 1));
+            esimerkki1.asetaKorkeus(välikorkeus);
+            esimerkki1.asetaTeksti((String)Array.get(kk2, 2));
+            esimerkki1.asetaTäyte((String)Array.get(kk2, 3));
+            int välileveys1 = Integer.parseInt((String)Array.get(kk3, 0));
+            esimerkki2.asetaLeveys(välileveys1);
+            int välikorkeus1 = Integer.parseInt((String)Array.get(kk3, 1));
+            esimerkki2.asetaKorkeus(välikorkeus1);
+            esimerkki2.asetaTeksti((String)Array.get(kk3, 2));
+            esimerkki2.asetaTäyte((String)Array.get(kk3, 3));
+            tulosta(esimerkki1);
+            tulosta(esimerkki2);
+        }else if(((String) Array.get(kk2, 0)).equals("0")){
+            String tekst = (String)Array.get(kk2, 2);
+            System.out.println("--{ " + tekst + " }--");
+            int välileveys = Integer.parseInt((String)Array.get(kk1, 0));
+            esimerkki1.asetaLeveys(välileveys);
+            int välikorkeus = Integer.parseInt((String)Array.get(kk1, 1));
+            esimerkki1.asetaKorkeus(välikorkeus);
+            esimerkki1.asetaTeksti((String)Array.get(kk1, 2));
+            esimerkki1.asetaTäyte((String)Array.get(kk1, 3));
+            int välileveys1 = Integer.parseInt((String)Array.get(kk3, 0));
+            esimerkki2.asetaLeveys(välileveys1);
+            int välikorkeus1 = Integer.parseInt((String)Array.get(kk3, 1));
+            esimerkki2.asetaKorkeus(välikorkeus1);
+            esimerkki2.asetaTeksti((String)Array.get(kk3, 2));
+            esimerkki2.asetaTäyte((String)Array.get(kk3, 3));
+            tulosta(esimerkki1);
+            tulosta(esimerkki2);
+    }else {
+            String tekst = (String)Array.get(kk3, 2);
+            System.out.println("--{ " + tekst + " }--");
+            int välileveys = Integer.parseInt((String)Array.get(kk2, 0));
+            esimerkki1.asetaLeveys(välileveys);
+            int välikorkeus = Integer.parseInt((String)Array.get(kk2, 1));
+            esimerkki1.asetaKorkeus(välikorkeus);
+            esimerkki1.asetaTeksti((String)Array.get(kk2, 2));
+            esimerkki1.asetaTäyte((String)Array.get(kk2, 3));
+            int välileveys1 = Integer.parseInt((String)Array.get(kk1, 0));
+            esimerkki2.asetaLeveys(välileveys1);
+            int välikorkeus1 = Integer.parseInt((String)Array.get(kk1, 1));
+            esimerkki2.asetaKorkeus(välikorkeus1);
+            esimerkki2.asetaTeksti((String)Array.get(kk1, 2));
+            esimerkki2.asetaTäyte((String)Array.get(kk1, 3));
+            tulosta(esimerkki1);
+            tulosta(esimerkki2);
+    }
+    }
+
+        public static String arvot(Kyltti kyltti){
+        String l = Integer.toString(kyltti.annaLeveys());
+        String k = Integer.toString(kyltti.annaKorkeus());
+        String te = kyltti.annaTeksti();
+        String t = kyltti.annaTäyte();
+        String arvo = l + " " + k + " " + te + " " + t;
+        return arvo;
+        }
+
+        public static String yksinkertaisetarvot(String teksti){
+        String yksinkertainenarvo = "0 0 " + teksti + " 0";
+        return yksinkertainenarvo;
+        }
+
+        public static void asetaTaulukkoon(String arvo){
+        kyltit.add(arvo);
+        }
 
         public static void tulosta(Kyltti kyltti) {
             final int k2 = (kyltti.annaKorkeus() - 1) / 2;
