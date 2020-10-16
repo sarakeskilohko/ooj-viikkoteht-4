@@ -35,3 +35,5 @@ $ mvn surefire-report:report
 ## Online report
 
 See <https://gitlab.utu.fi/tech/education/ooj/ooj-template/pages>
+                                                                  
+Your version: https://USERNAME.utugit.fi/ooj-template/
