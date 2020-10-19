@@ -35,6 +35,7 @@ public class teht1 {
 
 
         public static void main(String[] args) {
+            //*aloitetaan sillä, että henkilö saa itse tehdä kolme kylttiä miten tahtoo
             System.out.println("Luodaan kyltti");
             kysykyltti();
 
@@ -54,6 +55,8 @@ public class teht1 {
                 kysykyltti();
             }
 
+            /* main-metodi päättyy esimerkkikylttien luomiseen, niiden asettamiseen taulukkoon ja taulukosta
+            hakemiseen ja tulostamiseen. */
             System.out.println("Luodaan esimerkkikyltit");
             luoKyltit();
             System.out.println("Kyltit tallennettiin taulukkoon.");
@@ -69,6 +72,9 @@ public class teht1 {
         System.out.println("Minkälaisen kyltin haluat luoda? (perus, yksinkertainen, kustomoitava)");
         String tyyppi = scanner.nextLine();
         tyyppi.toLowerCase();
+
+        //* Kutsutaan eri kylteille tarkoitettuja luontimetodeja sen mukaan, mitä kyltin tekijä päättää
+
         if (tyyppi.equals("perus")) {
             peruskyltti(kylttiteksti);
         } else if (tyyppi.equals("yksinkertainen")) {
@@ -84,6 +90,7 @@ public class teht1 {
     }
 
         public static Kyltti luokyltti(Kyltti kyltti) {
+            //* Luodaan kustomoitava kyltti
 
             System.out.println("Anna leveys välillä 8-40");
             int leveys = scanner.nextInt();
@@ -107,6 +114,7 @@ public class teht1 {
         yksinkertainenKyltti("Esimerkki");
         asetaTaulukkoon(yksinkertaisetarvot("Esimerkki"));
         peruskyltti("Esimerkki");
+        //* luodaan kustomoidusta kyltistä esimerkki
         Kyltti perusesimerkkikyltti = new Kyltti(40,5,"Esimerkki","*");
         asetaTaulukkoon(arvot(perusesimerkkikyltti));
         asetaTaulukkoon(arvot(esimerkki));
@@ -119,6 +127,7 @@ public class teht1 {
         }
 
         public static String[] pilko1(ArrayList<String> kyltit){
+        //*erotetaan arraylistin ensimmäisen indeksin merkkijono arvoiksi
         String kylt1 = kyltit.get(0);
         String[] k1 = kylt1.split(" ");
         return k1;
@@ -126,6 +135,7 @@ public class teht1 {
         }
 
     public static String[] pilko2(ArrayList<String> kyltit){
+        //*erotetaan arraylistin toisen indeksin merkkijono arvoiksi
         String kylt2 = kyltit.get(1);
         String[] k2 = kylt2.split(" ");
         return k2;
@@ -133,6 +143,7 @@ public class teht1 {
     }
 
     public static String[] pilko3(ArrayList<String> kyltit) {
+        //*erotetaan arraylistin kolmannen indeksin merkkijono arvoiksi
         String kylt3 = kyltit.get(2);
         String[] k3 = kylt3.split(" ");
         return k3;
@@ -143,9 +154,12 @@ public class teht1 {
         String [] kk1 = pilko1(kyltit);
         String [] kk2 = pilko2(kyltit);
         String [] kk3 = pilko3(kyltit);
+        //* luodaan uudet kyltti-oliot, joihin voidaan asettaa "pilko" metodista saadut arvot
         Kyltti esimerkki1 = new Kyltti(0, 0, "", "");
         Kyltti esimerkki2 = new Kyltti(0, 0, "", "");
 
+        //*tarkistetaan, mikä kolmesta indeksistä on se, jossa on yksinkertainen kyltti.
+        //*yksinkertainen kyltti tulostetaan println avulla, kaksi muuta kylttiä tulostetaan metodin "tulosta" avulla.
         if(((String) Array.get(kk1, 0)).equals("0")){
             String tekst = (String)Array.get(kk1, 2);
             System.out.println("--{ " + tekst + " }--");
@@ -201,6 +215,7 @@ public class teht1 {
     }
 
         public static String arvot(Kyltti kyltti){
+        //* luodaan kylttejä varten merkkijonot "arvot", joihin sisältyy tieto kyltin koosta, tekstistä ja täytteestä
         String l = Integer.toString(kyltti.annaLeveys());
         String k = Integer.toString(kyltti.annaKorkeus());
         String te = kyltti.annaTeksti();
@@ -210,14 +225,18 @@ public class teht1 {
         }
 
         public static String yksinkertaisetarvot(String teksti){
+        //* metodi yksinkertaisten kylttien arvo-Stringille
         String yksinkertainenarvo = "0 0 " + teksti + " 0";
         return yksinkertainenarvo;
         }
 
-        public static void asetaTaulukkoon(String arvo){
+        public static void asetaTaulukkoon(String arvo) {
+        //*  asetetaan kylttien arvot taulukkoon Stringeinä
         kyltit.add(arvo);
         }
 
+
+        //*tulostus metodi hieman muutettuna
         public static void tulosta(Kyltti kyltti) {
             final int k2 = (kyltti.annaKorkeus() - 1) / 2;
             final int l2 = (kyltti.annaLeveys() - kyltti.annaTeksti().length() - 2) / 2;
