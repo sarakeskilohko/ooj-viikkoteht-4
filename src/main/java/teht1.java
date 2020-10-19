@@ -19,6 +19,7 @@ public class teht1 {
        */
 
     //* moi :)
+    //* moi 2
 
     //* Tämän viikon lisäykset kylttitehtävään:
 
