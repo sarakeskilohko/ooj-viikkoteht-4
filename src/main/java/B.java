@@ -4,6 +4,6 @@ abstract class B extends D {
     }
     void x() {super.x();
     a();
-    super.y();}
-    void y() { a();}
+    }
+    void y() { super.y();}
 }
